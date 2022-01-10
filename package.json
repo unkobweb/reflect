@@ -11,7 +11,11 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "core-js": "^3.15.1",
-    "nuxt": "^2.15.7"
+    "fs": "^0.0.1-security",
+    "nuxt": "^2.15.7",
+    "socket.io": "^4.4.1",
+    "socket.io-client": "^4.4.1",
+    "vue-socket.io": "^3.0.10"
   },
   "devDependencies": {
     "@nuxt/types": "^2.15.7",
