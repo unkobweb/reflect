@@ -27,7 +27,6 @@ app.post('/names', urlencodedParser, (req, res) => {
 });
 
 app.get('/calendars/:name', (req, res) => {
-  console.log(req.params.name);
   const content = JSON.parse(fs.readFileSync('credentials.json'));
   const {client_secret, client_id, redirect_uris} = content.web;
   const oAuth2Client = new google.auth.OAuth2(
@@ -44,7 +43,7 @@ app.get('/calendars/:name', (req, res) => {
       singleEvents: true,
       orderBy: 'startTime'
     }, (err, result) => {
-      if (err) return res.sendStatus(500);
+      if (err) return res.send([]);
       const events = result.data.items;
       return res.send(events);
     });
