@@ -33,7 +33,7 @@ app.get('/calendars/:name', (req, res) => {
       client_id, client_secret, redirect_uris[0]);
 
   fs.readFile(`${req.params.name.toLowerCase()}_token.json`, (err, token) => {
-    if (err) return res.sendStatus(500);
+    if (err) return res.send([]);
     oAuth2Client.setCredentials(JSON.parse(token));
     const calendar = google.calendar({version: 'v3', auth: oAuth2Client});
     calendar.events.list({
