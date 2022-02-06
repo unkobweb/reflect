@@ -5,6 +5,5 @@ import VueSocketIO from 'vue-socket.io';
 export const SocketInstance = socketio('http://192.168.1.11:4000');
 
 Vue.use(new VueSocketIO({
-    debug: true,
     connection: SocketInstance,
 }), SocketInstance)

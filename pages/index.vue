@@ -1,11 +1,22 @@
 <template>
   <div>
-    <p>{{name}}</p>
+    <Hour />
+    <HelloMessage />
+    <GoogleCalendar />
   </div>
 </template>
 
 <script>
+import Hour from '~/components/Hour.vue'
+import HelloMessage from '~/components/HelloMessage.vue'
+import GoogleCalendar from '~/components/GoogleCalendar.vue'
+
 export default {
+  components: {
+    Hour,
+    HelloMessage,
+    GoogleCalendar
+  },
   data() {
     return {
       isConnected: false,
@@ -15,7 +26,6 @@ export default {
 
   sockets: {
     connect() {
-      console.log('Socket connected')
       this.isConnected = true;
     },
 
@@ -25,7 +35,7 @@ export default {
 
     // Fired when the server sends something on the "messageChannel" channel.
     names(data) {
-      this.name = data
+      this.$store.dispatch('users/setUsers', data.names)
     }
   },
 }
