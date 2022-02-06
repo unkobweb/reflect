@@ -29,7 +29,7 @@ export default Vue.extend({
   },
   computed: {
     users() {
-      return this.$store.getters['users/getUsers']
+      return this.$store.getters['users/getUsers'].filter(user => user.toLowerCase() !== "unknown");
     }
   },
   data() {
