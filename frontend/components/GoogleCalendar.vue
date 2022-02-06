@@ -91,17 +91,13 @@ export default Vue.extend({
       // check user to remove
       const userToRemove = this.lastUsers.filter(user => actualUsers.indexOf(user) === -1);
       for (const user of userToRemove) {
-        console.log("Remove user", user);
         promises.push(this.removeUser(user))
       }
       // check user to come
       const userToCome = actualUsers.filter(user => this.lastUsers.indexOf(user) === -1);
       for (const user of userToCome) {
-        console.log("Add user", user);
         promises.push(this.getUserEvents(user))
       }
-      console.log(actualUsers.length)
-      if (actualUsers) console.log(6/actualUsers.length)
       promises.push(this.setMaxEvents(actualUsers.length ? 6/actualUsers.length : 6));
       await Promise.all(promises);
       this.lastUsers = [...this.actualUsers];
@@ -131,7 +127,6 @@ export default Vue.extend({
   watch: {
     users: {
       async handler(){
-        console.log("users changed")
         this.toggleUsers();
       },
       deep: true,

@@ -57,7 +57,7 @@ export default Vue.extend({
             if (this.needToDisplayNames.length === 0 || this.showing) return; 
             this.showing = true;
             this.displayingName = this.needToDisplayNames.pop();
-            await this.wait(20500);
+            await this.wait(2500);
             this.displayingName = null;
             await this.wait(1000);
             this.showing = false;
