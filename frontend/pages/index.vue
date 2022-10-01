@@ -1,8 +1,13 @@
 <template>
   <div>
-    <Hour />
-    <HelloMessage />
-    <GoogleCalendar />
+    <div v-if="users.length > 0">
+      <Hour />
+      <HelloMessage />
+      <GoogleCalendar />
+    </div>
+    <div v-else>
+      <iframe src="http://dynmap.alkana.fr/?worldname=world&mapname=surface&zoom=5&x=-620&y=64&z=354&overlay=hidden" width="1920" height="1080" frameborder="0"></iframe>
+    </div>
   </div>
 </template>
 
@@ -21,6 +26,11 @@ export default {
     return {
       isConnected: false,
       name: []
+    }
+  },
+  computed: {
+    users() {
+      return this.$store.getters['users/getUsers']
     }
   },
 
