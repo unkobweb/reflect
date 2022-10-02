@@ -7,7 +7,7 @@
     </div>
     <div v-else>
       <BigHour />
-      <iframe src="http://dynmap.alkana.fr/?worldname=world&mapname=surface&zoom=5&x=-620&y=64&z=354&overlay=hidden" width="1920" height="1080" frameborder="0"></iframe>
+      <iframe src="http://dynmap.alkana.fr/?worldname=world&mapname=surface&zoom=6&x=-640&y=64&z=384&overlay=hidden" width="1920" height="1080" frameborder="0"></iframe>
     </div>
   </div>
 </template>
@@ -53,3 +53,11 @@ export default {
   },
 }
 </script>
+
+<style>
+iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+</style>

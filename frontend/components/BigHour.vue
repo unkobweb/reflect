@@ -1,16 +1,15 @@
 <template>
-    <div>
-        <div class="container">
-            <div class="time-container">
-                <h1 id="hour">{{ hour }}</h1>
-                <h2 id="date">{{ date }}</h2>
-            </div>
-            <div class="weather-container">
-                <h1 class="temperature">{{temperature}}°C</h1>
-                <h2 class="weather">{{weather}}</h2>
-            </div>
-        </div>
+  <div>
+    <div class="container">
+      <div class="time-container">
+        <h1 id="hour">{{ hour }}</h1>
+      </div>
+      <div class="weather-container">
+        <h2 id="date">{{ date }}</h2>
+        <h1 class="temperature">{{temperature}}°C</h1>
+      </div>
     </div>
+  </div>
 </template>
 
 <script lang="ts" defer>
@@ -38,13 +37,11 @@ export default Vue.extend({
             return digit
         },
         verboseDate(date: Date){
-            let days = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"]
-            let months = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"]
-            return days[date.getDay()] + " " + date.getDate() + " " + months[date.getMonth()] + " " + date.getFullYear()
+            return `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth()+1).padStart(2, '0')}`
         },
         updateDateAndHour(){
             const theDateAndHour = new Date()
-            this.hour = this.twoDigits(theDateAndHour.getHours()) + ":" + this.twoDigits(theDateAndHour.getMinutes()) + ":" + this.twoDigits(theDateAndHour.getSeconds())
+            this.hour = this.twoDigits(theDateAndHour.getHours()) + ":" + this.twoDigits(theDateAndHour.getMinutes())
             this.date = this.verboseDate(theDateAndHour)
         },
         async updateWeather(){
@@ -68,78 +65,51 @@ export default Vue.extend({
 <style scoped>
     .container{
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
         margin: 10px;
         padding-left: 10px;
         padding-top: 3px;
         padding-bottom: 0;
         width: fit-content;
-        position: relative;
+        position: absolute;
+        right: 240px;
+        top: 27%;
         z-index : 1;
     }
+    .time-container {
+      display: flex;
+      flex-direction: column;
+    }
     #hour{
-        font-size: 50px;
-        font-weight: 500;
-        opacity: 0;
-        animation: appear 1s 1s forwards;
+      font-family: 'Calibre';
+      font-size: 260px;
+      font-weight: 500;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: appearFromUp 1s 5s forwards;
+      margin-bottom: -90px;
+      padding: 0;
+      /* text-shadow: 0px 15px 5px rgba(0,0,0,0.1),
+                 10px 20px 5px rgba(0,0,0,0.05),
+                 -10px 20px 5px rgba(0,0,0,0.05); */
     }
     #date{
         opacity: 0;
-        transform: translateY(-10px);
-        animation: appearFromUp .5s 2s forwards;
+        transform: translateY(20px);
+        animation: appearFromDown .5s 7s forwards;
         margin: 0;
         padding-bottom: 5px;
-    }
-    .container::before{
-        content : "";
-        position: absolute;
-        left    : 0;
-        top  : 0;
-        width   : 1px;  /* or 100px */
-        border-left: 1px solid white;
-        animation: extenderHeight 2s 1s forwards;
-    }
-    .container::after{
-        content : "";
-        position: absolute;
-        left    : 0;
-        top  : 0;
-        height  : 1px;
-        border-top: 1px solid white;
-        animation: extenderWidth 2s 1s forwards;
+        font-size: 75px;
+        font-family: 'Calibre';
+        /* text-shadow: 0px 15px 5px rgba(0,0,0,0.1),
+                 10px 20px 5px rgba(0,0,0,0.05),
+                 -10px 20px 5px rgba(0,0,0,0.05); */
     }
 
-    @keyframes extenderWidth {
+    @keyframes appearFromDown {
         from {
-            width: 0%;
-        }
-        to {
-            width: 100%
-        }
-    }
-
-    @keyframes extenderHeight {
-        from {
-            height: 0%
-        }
-        to {
-            height: 100%
-        }
-    }
-
-    @keyframes appear {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-
-    @keyframes appearFromUp {
-        from {
-            transform: translateY(10px);
+            transform: translateY(20px);
             opacity: 0;
         }
         to {
@@ -147,44 +117,33 @@ export default Vue.extend({
             opacity: 1;
         }
     }
-    @keyframes appearTemp {
+    @keyframes appearFromUp {
         from {
-            transform: translateY(-100px);
+            transform: translateY(-20px);
             opacity: 0;
         }
         to {
-            transform: translateY(6px);
-            opacity: 1;
-        }
-    }
-    @keyframes appearFromDown {
-        from {
-            transform: translateY(50px);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(-4px);
+            transform: translateY(0px);
             opacity: 1;
         }
     }
     .weather-container{
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        max-width: 140px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
         padding-left: 20px;
         padding-right: 10px;
     }
     .temperature{
+        font-size: 80px;
         font-family: 'Calibre';
-        transform: translateY(-100px);
-        animation: appearTemp 1s 3s forwards;
-    }
-    .weather {
-        font-size: 15px;
-        transform: translateY(50px);
-        text-transform: capitalize;
+        animation: appearFromDown .5s 8s forwards;
         opacity: 0;
-        animation: appearFromDown 1s 4s forwards;
+        transform: translateY(20px);
+        /* text-shadow: 0px 15px 5px rgba(0,0,0,0.1),
+                 10px 20px 5px rgba(0,0,0,0.05),
+                 -10px 20px 5px rgba(0,0,0,0.05); */
     }
 </style>
